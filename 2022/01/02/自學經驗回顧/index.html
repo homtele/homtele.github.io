@@ -6,15 +6,15 @@
   
   <title>自學經驗回顧 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="狀況；緣起了解 Express 的錯誤處理流程 第一次出手與失敗直接在加入以下程式碼 1234567app.use((req, res, next) &#x3D;&gt; &amp;#123;    res.status(404).send(&amp;#x27;Page Not Found&amp;#x27;)&amp;#125;)app.use((err, req, res, next) &#x3D;&gt; &amp;#123;    res.stat">
+  <meta name="description" content="狀況；緣起了解 Express 的錯誤處理流程 第一次出手與失敗直接在加入以下程式碼 1234567app.use((req, res, next) &#x3D;&gt; &amp;#123;  res.status(404).send(&amp;#x27;Page Not Found&amp;#x27;)&amp;#125;)app.use((err, req, res, next) &#x3D;&gt; &amp;#123;  res.status(5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自學經驗回顧">
 <meta property="og:url" content="https://homtele.github.io/2022/01/02/%E8%87%AA%E5%AD%B8%E7%B6%93%E9%A9%97%E5%9B%9E%E9%A1%A7/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="狀況；緣起了解 Express 的錯誤處理流程 第一次出手與失敗直接在加入以下程式碼 1234567app.use((req, res, next) &#x3D;&gt; &amp;#123;    res.status(404).send(&amp;#x27;Page Not Found&amp;#x27;)&amp;#125;)app.use((err, req, res, next) &#x3D;&gt; &amp;#123;    res.stat">
+<meta property="og:description" content="狀況；緣起了解 Express 的錯誤處理流程 第一次出手與失敗直接在加入以下程式碼 1234567app.use((req, res, next) &#x3D;&gt; &amp;#123;  res.status(404).send(&amp;#x27;Page Not Found&amp;#x27;)&amp;#125;)app.use((err, req, res, next) &#x3D;&gt; &amp;#123;  res.status(5">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-01-02T10:06:47.000Z">
-<meta property="article:modified_time" content="2022-01-02T16:14:27.782Z">
+<meta property="article:modified_time" content="2022-01-16T16:36:38.214Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -96,11 +96,11 @@
       
         <h1 id="狀況；緣起"><a href="#狀況；緣起" class="headerlink" title="狀況；緣起"></a>狀況；緣起</h1><p>了解 Express 的錯誤處理流程</p>
 <h1 id="第一次出手與失敗"><a href="#第一次出手與失敗" class="headerlink" title="第一次出手與失敗"></a>第一次出手與失敗</h1><p>直接在加入以下程式碼</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    res.status(<span class="number">404</span>).send(<span class="string">&#x27;Page Not Found&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="function">(<span class="params">err, req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">    res.status(<span class="number">500</span>).send(<span class="string">&#x27;Something Broke!&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">app.use(<span class="function">(<span class="params">req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.status(<span class="number">404</span>).send(<span class="string">&#x27;Page Not Found&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="function">(<span class="params">err, req, res, next</span>) =&gt;</span> &#123;</span><br><span class="line">  res.status(<span class="number">500</span>).send(<span class="string">&#x27;Something Broke!&#x27;</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>完成之後產生兩個問題：</p>
 <ul>
-<li>含有變數的盧由如何處理？</li>
-<li>引數 <code>next</code> 是如何運作的？</li>
+<li>  含有變數的盧由如何處理？</li>
+<li>  引數 <code>next</code> 是如何運作的？</li>
 </ul>
 <h1 id="掌握關鍵，撥雲見月"><a href="#掌握關鍵，撥雲見月" class="headerlink" title="掌握關鍵，撥雲見月"></a>掌握關鍵，撥雲見月</h1><p>參考很多網路文章，最後依照下面這個影片實作，得到滿意的解答</p>
 <div class="video-container"><iframe src="https://www.youtube.com/embed/DyqVqaf1KnA" frameborder="0" loading="lazy" allowfullscreen></iframe></div>
@@ -116,6 +116,20 @@
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/2022/01/17/%E8%80%81%E7%88%B8%E7%9A%84%E7%A7%81%E6%88%BF%E9%8C%A2%E5%B0%88%E6%A1%88%E4%BB%8B%E7%B4%B9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          老爸的私房錢專案介紹
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
@@ -147,6 +161,10 @@
     <h3 class="widget-title">letzter Beitrag</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/01/17/%E8%80%81%E7%88%B8%E7%9A%84%E7%A7%81%E6%88%BF%E9%8C%A2%E5%B0%88%E6%A1%88%E4%BB%8B%E7%B4%B9/">老爸的私房錢專案介紹</a>
+          </li>
         
           <li>
             <a href="/2022/01/02/%E8%87%AA%E5%AD%B8%E7%B6%93%E9%A9%97%E5%9B%9E%E9%A1%A7/">自學經驗回顧</a>
